@@ -19,7 +19,7 @@ export const projectsData = [
         name: 'CampusNest',
         description: 'CampusNest is a web application designed for students to easily search and book accommodations. It allows users to host their properties and explore a variety of other listings. With a wide range of filtering options, including hostel type, facilities, and department, finding the perfect place is simple and convenient. Each hostel listing features a Google Map location for easy navigation, and secure payments are facilitated through Stripe. Additionally, users can post reviews on hostels they have booked, ensuring a community-driven experience.',
         tools: ['ReactJS', "TypeScript", "MongoDB", "Cloudinary", 'Tailwind CSS', "Google Maps", "Stripe"],
-        previewLink: 'https://github.com/anuragp787/No-Fine-Backend-Hostel-Attendance-Tracking-Application/assets/90975247/28ed22c7-54f6-49d3-bcb9-ddc5b733a742',
+        previewLink: 'https://campusnest-bbwd.onrender.com/',
         frontendRepo: '',
         backendRepo: '',
         completeRepo: 'https://github.com/anuragpsarmah/CampusNest',

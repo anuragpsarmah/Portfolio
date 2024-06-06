@@ -96,7 +96,7 @@ function ProjectCard({ project }) {
                 target="_blank"
                 className="text-orange-400"
               >
-                campusnest.github.com
+                repo.github.com
               </a>
               <span className="text-gray-400">,</span>
             </div>
