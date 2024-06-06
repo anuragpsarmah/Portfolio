@@ -39,7 +39,13 @@ function ContactWithoutCaptcha() {
     const options = { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY };
 
     try {
-      const res = await emailjs.send(serviceID, templateID, input, options);
+      const templateParams = {
+        from_name: input.name,
+        to_name: 'Anurag',
+        from_email: input.email,
+        message: input.message,
+      };
+      const res = await emailjs.send(serviceID, templateID, templateParams, options);
 
       if (res.status === 200) {
         toast.success('Message sent successfully!');
