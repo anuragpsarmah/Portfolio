@@ -9,7 +9,7 @@ import './css/globals.scss';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Anurag Parashar Sarmah',
+  title: 'Portfolio',
   description: 'Developer Portfolio of Anurag Parashar Sarmah',
 };
 
