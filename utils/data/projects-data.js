@@ -28,7 +28,7 @@ export const projectsData = [
         id: 3,
         name: 'OnClique',
         description: 'OnClique is a placement training application designed for final year computer science students. Users can solve daily aptitude questions, a daily coding question, and a daily SQL question. The application maintains a leaderboard based on the scores achieved by the students. With AI integration, students can analyze their code submissions as well. Additionally, it features an archive where students can access and solve past questions. The admin panel is highly intuitive, providing visibility into student statistics and utilizing the Nivo library to display graphs. Admins can also add new questions directly through the admin panel, ensuring the content remains current and challenging.',
-        tools: ['ReactJS', 'MUI', 'Firebase', 'Recoil', 'D3.js', 'nivo', 'EdenAI', 'OpenAI API'],
+        tools: ['ReactJS', 'Firebase', 'Recoil', 'Docker', 'MUI', 'D3.js', 'nivo', 'EdenAI', 'OpenAI API'],
         previewLink: "https://onclique.vercel.app",
         frontendRepo: '',
         backendRepo: '',
