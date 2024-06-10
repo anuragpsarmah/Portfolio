@@ -1,6 +1,6 @@
 // @flow strict
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { personalData } from "@/utils/data/personal-data";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,11 +9,30 @@ import { MdDownload } from "react-icons/md";
 import { RiContactsFill } from "react-icons/ri";
 import { SiLeetcode } from "react-icons/si";
 import TypeIt from "typeit-react";
+import styles from "./styles.module.css";
 
 function HeroSection() {
   const [isFirstTypingComplete, setIsFirstTypingComplete] = useState(false);
   const [isSecondTypingComplete, setIsSecondTypingComplete] = useState(false);
   const [isThirdTypingComplete, setIsThirdTypingComplete] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [isMeasuring, setIsMeasuring] = useState(true);
+  const [heightC, setHeightC] = useState();
+  const [widthC, setWidthC] = useState();
+
+  // Ref for the container
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (isMeasuring && containerRef.current) {
+      const { height, width } = containerRef.current.getBoundingClientRect();
+      setHeightC(height);
+      setWidthC(width);
+      // Switch to typing mode after measuring
+      setIsMeasuring(false);
+      setVisible(false);
+    }
+  }, [isMeasuring, isThirdTypingComplete]);
 
   const optionsFirst = {
     pauseFor: 0,
@@ -35,6 +54,80 @@ function HeroSection() {
       setIsThirdTypingComplete(true);
     },
   };
+
+  const fullContent = (
+    <>
+      <span className="mr-2 text-pink-500">const</span>
+      <span className="mr-2 text-white">coder</span>
+      <span className="mr-2 text-pink-500">=</span>
+      <span className="text-gray-400">{`{`}</span>
+      <br />
+      <span className="ml-4 lg:ml-8 mr-2 text-white">name:</span>
+      <span className="text-gray-400">{`'`}</span>
+      <span className="text-amber-300">Anurag Parashar Sarmah</span>
+      <span className="text-gray-400">{`',`}</span>
+      <br />
+      <div className="ml-4 lg:ml-8 mr-2">
+        <span className="text-white">skills:</span>
+        <span className="text-gray-400">{` ['`}</span>
+        <span className="text-amber-300">React</span>
+        <span className="text-gray-400">{"', '"}</span>
+        <span className="text-amber-300">NextJS</span>
+        <span className="text-gray-400">{"', '"}</span>
+        <span className="text-amber-300">Express</span>
+        <span className="text-gray-400">{"', '"}</span>
+        <span className="text-amber-300">Recoil</span>
+        <span className="text-gray-400">{"', '"}</span>
+        <span className="text-amber-300">Redux</span>
+        <span className="text-gray-400">{"', '"}</span>
+        <span className="text-amber-300">MongoDB</span>
+        <span className="text-gray-400">{"', '"}</span>
+        <span className="text-amber-300">MySql</span>
+        <span className="text-gray-400">{"', '"}</span>
+        <span className="text-amber-300">Docker</span>
+        <span className="text-gray-400">{"', '"}</span>
+        <span className="text-amber-300">AWS</span>
+        <span className="text-gray-400">{"'],"}</span>
+      </div>
+      <span className="ml-4 lg:ml-8 mr-2 text-white">techWorm:</span>
+      <span className="text-orange-400">true</span>
+      <span className="text-gray-400">,</span>
+      <br />
+      <span className="ml-4 lg:ml-8 mr-2 text-white">problemSolver:</span>
+      <span className="text-orange-400">true</span>
+      <span className="text-gray-400">,</span>
+      <br />
+      <span className="ml-4 lg:ml-8 mr-2 text-white">documentationReader:</span>
+      <span className="text-orange-400">true</span>
+      <span className="text-gray-400">,</span>
+      <br />
+      <span className="ml-4 lg:ml-8 mr-2 text-green-400">hireable:</span>
+      <span className="text-orange-400">function</span>
+      <span className="text-gray-400">{`() {`}</span>
+      <br />
+      <span className="ml-8 lg:ml-16 mr-2 text-orange-400">return</span>
+      <span className="text-gray-400">(</span>
+      <br />
+      <span className="ml-12 lg:ml-24 text-cyan-400">this.</span>
+      <span className="mr-2 text-white">problemSolver</span>
+      <span className="text-amber-300">&amp;&amp;</span>
+      <br />
+      <span className="ml-12 lg:ml-24 text-cyan-400">this.</span>
+      <span className="mr-2 text-white">documentationReader</span>
+      <span className="text-amber-300">&amp;&amp;</span>
+      <br />
+      <span className="ml-12 lg:ml-24 text-cyan-400">this.</span>
+      <span className="mr-2 text-white">skills.length</span>
+      <span className="mr-2 text-amber-300">&gt;=</span>
+      <span className="text-orange-400">5</span>
+      <br />
+      <span className="ml-8 lg:ml-16 mr-2 text-gray-400">);</span>
+      <br />
+      <span className="ml-4 lg:ml-8 text-gray-400">{`};`}</span>
+      <br />
+      <span className="text-gray-400">{`};`}</span>
+    </>
+  );
 
   return (
     <section className="relative flex flex-col items-center justify-between py-4 lg:py-12">
@@ -101,7 +194,14 @@ function HeroSection() {
             </Link>
           </div>
         </div>
-        <div className="order-1 lg:order-2 from-[#0d1224] border-[#1b2c68a0] relative rounded-lg border bg-gradient-to-r to-[#0a0d37] lg:h-[30rem] h-[29.5rem] w-[20.5rem] lg:w-[34rem] md:w-[35rem]">
+        <div
+          ref={containerRef}
+          className={`order-1 lg:order-2 from-[#0d1224] border-[#1b2c68a0] relative rounded-lg border bg-gradient-to-r to-[#0a0d37] ${styles.customHeight} ${styles.customWidth} justify-between`}
+          style={{
+            "--custom-height": `${heightC}px`,
+            "--custom-width": `${widthC}px`,
+          }}
+        >
           <div className="flex flex-row">
             <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-pink-500 to-violet-600"></div>
             <div className="h-[1px] w-full bg-gradient-to-r from-violet-600 to-transparent"></div>
@@ -120,137 +220,162 @@ function HeroSection() {
             </div>
           </div>
           <div className="overflow-hidden border-t-[2px] border-indigo-900 px-4 lg:px-8 py-4 lg:py-8">
-            <code className="font-mono text-xs md:text-sm lg:text-base">
-              {isFirstTypingComplete ? (
-                <>
-                  <span className="mr-2 text-pink-500">const</span>
-                  <span className="mr-2 text-white">coder</span>
-                  <span className="mr-2 text-pink-500">=</span>
-                  <span className="text-gray-400">{`{`}</span>
-                  <br />
-                  <span className="ml-4 lg:ml-8 mr-2 text-white">name:</span>
-                  <span className="text-gray-400">{`'`}</span>
-                  <span className="text-amber-300">Anurag Parashar Sarmah</span>
-                  <span className="text-gray-400">{`',`}</span>
-                </>
+            <code
+              className="font-mono text-xs md:text-sm lg:text-base"
+              style={{ visibility: visible ? "hidden" : "visible" }}
+            >
+              {isMeasuring ? (
+                fullContent
               ) : (
                 <>
-                  <TypeIt options={optionsFirst}>
-                    <span className="mr-2 text-pink-500">const</span>
-                    <span className="mr-2 text-white">coder</span>
-                    <span className="mr-2 text-pink-500">=</span>
-                    <span className="text-gray-400">{`{`}</span>
-                    <br />
-                    <span className="ml-4 lg:ml-8 mr-2 text-white">name:</span>
-                    <span className="text-gray-400">{`'`}</span>
-                    <span className="text-amber-300">
-                      Anurag Parashar Sarmah
-                    </span>
-                    <span className="text-gray-400">{`',`}</span>
-                  </TypeIt>
-                </>
-              )}
-              <br />
-              <div className="ml-4 lg:ml-8 mr-2">
-                {isFirstTypingComplete &&
-                  (isSecondTypingComplete ? (
+                  {isFirstTypingComplete ? (
                     <>
-                      <span className="text-white">skills:</span>
-                      <span className="text-gray-400">{` ['`}</span>
-                      <span className="text-amber-300">React</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">NextJS</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">Express</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">Recoil</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">Redux</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">MongoDB</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">MySql</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">Docker</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">AWS</span>
-                      <span className="text-gray-400">{"'],"}</span>
+                      <span className="mr-2 text-pink-500">const</span>
+                      <span className="mr-2 text-white">coder</span>
+                      <span className="mr-2 text-pink-500">=</span>
+                      <span className="text-gray-400">{`{`}</span>
+                      <br />
+                      <span className="ml-4 lg:ml-8 mr-2 text-white">
+                        name:
+                      </span>
+                      <span className="text-gray-400">{`'`}</span>
+                      <span className="text-amber-300">
+                        Anurag Parashar Sarmah
+                      </span>
+                      <span className="text-gray-400">{`',`}</span>
                     </>
                   ) : (
-                    <TypeIt options={optionsSecond}>
-                      <span className="text-white">skills:</span>
-                      <span className="text-gray-400">{` ['`}</span>
-                      <span className="text-amber-300">React</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">NextJS</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">Express</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">Recoil</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">Redux</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">MongoDB</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">MySql</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">Docker</span>
-                      <span className="text-gray-400">{"', '"}</span>
-                      <span className="text-amber-300">AWS</span>
-                      <span className="text-gray-400">{"'],"}</span>
+                    <>
+                      <TypeIt options={optionsFirst}>
+                        <span className="mr-2 text-pink-500">const</span>
+                        <span className="mr-2 text-white">coder</span>
+                        <span className="mr-2 text-pink-500">=</span>
+                        <span className="text-gray-400">{`{`}</span>
+                        <br />
+                        <span className="ml-4 lg:ml-8 mr-2 text-white">
+                          name:
+                        </span>
+                        <span className="text-gray-400">{`'`}</span>
+                        <span className="text-amber-300">
+                          Anurag Parashar Sarmah
+                        </span>
+                        <span className="text-gray-400">{`',`}</span>
+                      </TypeIt>
+                    </>
+                  )}
+                  <br />
+                  <div className="ml-4 lg:ml-8 mr-2">
+                    {isFirstTypingComplete &&
+                      (isSecondTypingComplete ? (
+                        <>
+                          <span className="text-white">skills:</span>
+                          <span className="text-gray-400">{` ['`}</span>
+                          <span className="text-amber-300">React</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">NextJS</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">Express</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">Recoil</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">Redux</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">MongoDB</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">MySql</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">Docker</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">AWS</span>
+                          <span className="text-gray-400">{"'],"}</span>
+                        </>
+                      ) : (
+                        <TypeIt options={optionsSecond}>
+                          <span className="text-white">skills:</span>
+                          <span className="text-gray-400">{` ['`}</span>
+                          <span className="text-amber-300">React</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">NextJS</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">Express</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">Recoil</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">Redux</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">MongoDB</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">MySql</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">Docker</span>
+                          <span className="text-gray-400">{"', '"}</span>
+                          <span className="text-amber-300">AWS</span>
+                          <span className="text-gray-400">{"'],"}</span>
+                        </TypeIt>
+                      ))}
+                  </div>
+                  {isSecondTypingComplete && (
+                    <TypeIt options={optionsThird}>
+                      <span className="ml-4 lg:ml-8 mr-2 text-white">
+                        techWorm:
+                      </span>
+                      <span className="text-orange-400">true</span>
+                      <span className="text-gray-400">,</span>
+                      <br />
+                      <span className="ml-4 lg:ml-8 mr-2 text-white">
+                        problemSolver:
+                      </span>
+                      <span className="text-orange-400">true</span>
+                      <span className="text-gray-400">,</span>
+                      <br />
+                      <span className="ml-4 lg:ml-8 mr-2 text-white">
+                        documentationReader:
+                      </span>
+                      <span className="text-orange-400">true</span>
+                      <span className="text-gray-400">,</span>
+                      <br />
+                      <span className="ml-4 lg:ml-8 mr-2 text-green-400">
+                        hireable:
+                      </span>
+                      <span className="text-orange-400">function</span>
+                      <span className="text-gray-400">{`() {`}</span>
+                      <br />
+                      <span className="ml-8 lg:ml-16 mr-2 text-orange-400">
+                        return
+                      </span>
+                      <span className="text-gray-400">(</span>
+                      <br />
+                      <span className="ml-12 lg:ml-24 text-cyan-400">
+                        this.
+                      </span>
+                      <span className="mr-2 text-white">problemSolver</span>
+                      <span className="text-amber-300">&amp;&amp;</span>
+                      <br />
+                      <span className="ml-12 lg:ml-24 text-cyan-400">
+                        this.
+                      </span>
+                      <span className="mr-2 text-white">
+                        documentationReader
+                      </span>
+                      <span className="text-amber-300">&amp;&amp;</span>
+                      <br />
+                      <span className="ml-12 lg:ml-24 text-cyan-400">
+                        this.
+                      </span>
+                      <span className="mr-2 text-white">skills.length</span>
+                      <span className="mr-2 text-amber-300">&gt;=</span>
+                      <span className="text-orange-400">5</span>
+                      <br />
+                      <span className="ml-8 lg:ml-16 mr-2 text-gray-400">
+                        );
+                      </span>
+                      <br />
+                      <span className="ml-4 lg:ml-8 text-gray-400">{`};`}</span>
+                      <br />
+                      <span className="text-gray-400">{`};`}</span>
                     </TypeIt>
-                  ))}
-              </div>
-              {isSecondTypingComplete && (
-                <TypeIt options={optionsThird}>
-                  <span className="ml-4 lg:ml-8 mr-2 text-white">
-                    techWorm:
-                  </span>
-                  <span className="text-orange-400">true</span>
-                  <span className="text-gray-400">,</span>
-                  <br />
-                  <span className="ml-4 lg:ml-8 mr-2 text-white">
-                    problemSolver:
-                  </span>
-                  <span className="text-orange-400">true</span>
-                  <span className="text-gray-400">,</span>
-                  <br />
-                  <span className="ml-4 lg:ml-8 mr-2 text-white">
-                    documentationReader:
-                  </span>
-                  <span className="text-orange-400">true</span>
-                  <span className="text-gray-400">,</span>
-                  <br />
-                  <span className="ml-4 lg:ml-8 mr-2 text-green-400">
-                    hireable:
-                  </span>
-                  <span className="text-orange-400">function</span>
-                  <span className="text-gray-400">{`() {`}</span>
-                  <br />
-                  <span className="ml-8 lg:ml-16 mr-2 text-orange-400">
-                    return
-                  </span>
-                  <span className="text-gray-400">(</span>
-                  <br />
-                  <span className="ml-12 lg:ml-24 text-cyan-400">this.</span>
-                  <span className="mr-2 text-white">problemSolver</span>
-                  <span className="text-amber-300">&amp;&amp;</span>
-                  <br />
-                  <span className="ml-12 lg:ml-24 text-cyan-400">this.</span>
-                  <span className="mr-2 text-white">documentationReader</span>
-                  <span className="text-amber-300">&amp;&amp;</span>
-                  <br />
-                  <span className="ml-12 lg:ml-24 text-cyan-400">this.</span>
-                  <span className="mr-2 text-white">skills.length</span>
-                  <span className="mr-2 text-amber-300">&gt;=</span>
-                  <span className="text-orange-400">5</span>
-                  <br />
-                  <span className="ml-8 lg:ml-16 mr-2 text-gray-400">);</span>
-                  <br />
-                  <span className="ml-4 lg:ml-8 text-gray-400">{`};`}</span>
-                  <br />
-                  <span className="text-gray-400">{`};`}</span>
-                </TypeIt>
+                  )}
+                </>
               )}
             </code>
           </div>

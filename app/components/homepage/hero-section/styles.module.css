@@ -1,0 +1,7 @@
+.customHeight {
+    height: var(--custom-height);
+  }
+  
+  .customWidth {
+    width: var(--custom-width);
+  }
