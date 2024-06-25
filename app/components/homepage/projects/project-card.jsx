@@ -58,6 +58,7 @@ function ProjectCard({ project }) {
                 {project.name === "No Fine" && ("demoVideo.mp4")}
                 {project.name === "CampusNest" && ("campusnest.com")}
                 {project.name === "OnClique" && ("onclique.com")}
+                {project.name === "Silhouette" && ("silhouette.com")}
               </a>
               <span className="text-gray-400">,</span>
             </div>
@@ -97,6 +98,19 @@ function ProjectCard({ project }) {
                 className="text-orange-400"
               >
                 repo.github.com
+              </a>
+              <span className="text-gray-400">,</span>
+            </div>
+          )}
+          {project.dockerContainer && (
+            <div>
+              <span className="ml-4 lg:ml-8 mr-2 text-white">dockerRepo:</span>
+              <a
+                href={project.completeRepo}
+                target="_blank"
+                className="text-orange-400"
+              >
+                repo.dockerhub.com
               </a>
               <span className="text-gray-400">,</span>
             </div>
