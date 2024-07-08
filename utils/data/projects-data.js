@@ -27,7 +27,7 @@ export const projectsData = [
     {
         id: 3,
         name: 'CampusNest',
-        description: 'CampusNest is a web application designed for students to easily search and book accommodations. It allows users to host their properties and explore other listings. With a wide range of filtering options, including hostel type, facilities, and department, finding the perfect place is simple. Each hostel listing features a Google Map location for easy navigation, and secure payments are facilitated through Stripe. Uers can also post reviews on hostels they have booked.',
+        description: 'CampusNest is a web application designed for students to easily search and book accommodations. It allows users to host their properties and explore other listings. With a wide range of filtering options, including hostel type, facilities, and department, finding the perfect place is simple. Each hostel listing features a Google Map location for easy navigation, and secure payments are facilitated through Stripe. Users can also post reviews on hostels they have booked.',
         tools: ['ReactJS', "TypeScript", "MongoDB", "Cloudinary", 'Tailwind CSS', "Google Maps", "Stripe"],
         previewLink: 'https://campusnest-bbwd.onrender.com/',
         frontendRepo: '',
